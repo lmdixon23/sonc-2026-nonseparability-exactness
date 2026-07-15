@@ -1,0 +1,121 @@
+\appendix
+\section{Exact computational certificate for the three-negative witness}\label{app:certificate}
+This appendix records the exact elimination and interval steps used in Proposition~\ref{prop:certified-witness}. The accompanying modular certificate stores the complete coefficient lists, full compressed Sturm sequences, exact rational isolating intervals, linear-subresultant data, the complete Krawczyk image, and a claim-to-artifact crosswalk. All data are regenerated from the exact polynomials $P$ and $Q$ by \texttt{reconstruct\_certificate\_from\_exact\_data.py}; no contact box or algebraic root is supplied as an input to that reconstruction.
+\subsection{Original critical equations and symmetric reduction}
+The logarithmic critical equations for $R=P/Q$ are, after division by the strictly positive common factor $XY$,
+\begin{align*}
+E_1(X,Y)&=5(1+X^3+Y^3)X^5(1+4096Y^5)\\
+&\qquad-P(X,Y)(1+4X^3+Y^3),\\
+E_2(X,Y)&=5(1+X^3+Y^3)Y^5(1+4096X^5)\\
+&\qquad-P(X,Y)(1+X^3+4Y^3).
+\end{align*}
+On the diagonal, $E_1(X,X)=0$ is equivalent to
+\[
+d(X)=20480X^{13}+16384X^{10}+3X^5-5X^3-1=0.
+\]
+For $X\ne Y$, put $s=X+Y$ and $p=XY$. Exact symmetrization gives
+\begin{align*}
+S(s,p)&=3s^5+20480s^3p^5-15s^3p-5s^3-61440sp^6\\
+&\qquad+15sp^2+15sp+32768p^5-2,\\
+J(s,p)&=2s^7-12s^5p+5s^4+20s^3p^2-15s^2p-3s^2\\
+&\qquad+5p^2+3p-12288p^5(s^2-p).
+\end{align*}
+These satisfy the exact identities
+\[
+E_1+E_2=S(X+Y,XY),\qquad E_1-E_2=(X-Y)J(X+Y,XY).
+\]
+Thus, on the off-diagonal positive domain, the original system $E_1=E_2=0$ is equivalent to $S=J=0$. No division other than by the explicitly excluded factor $X-Y$ is used, so this identity supplies the required saturation and special-case account.
+\subsection{Complete resultant and Sturm classification}
+Eliminating $p$ from the original symmetric system gives
+\[
+\operatorname{Res}_p(S,J)=-2702159776422297600000\,(s+1)^6R_{12}(s)R_{35}(s).
+\]
+The degree-$12$ factor is
+\begin{align*}
+R_{12}(s) &= 4096s^{12} - 12288s^{11} + 24576s^{10} - 20480s^{9} \\
+&\quad  + 36837s^{7} - 49071s^{6} + 36702s^{5} + 135s^{4} \\
+&\quad  - 20480s^{3} + 24576s^{2} - 12288s + 4096.
+\end{align*}
+Exact Sturm variation counts give
+\[
+N_{(0,\infty)}(d)=1,\qquad N_{(0,\infty)}(R_{12})=0,\qquad N_{(0,\infty)}(R_{35})=3.
+\]
+The exact rational isolating intervals and endpoint variation counts are supplied in \path{sturm_certificates.json}. The full Sturm sequences, including all rational coefficients, are supplied in \path{sturm_sequences_full.json.gz}; the certificate manifest records its SHA-256 hash.
+\begingroup\scriptsize
+\begin{longtable}{r|r|r|r}
+$j$ & $[s^j]R_{35}$ & $[s^j]A$ & $[s^j]B$\\\hline
+\endfirsthead
+$j$ & $[s^j]R_{35}$ & $[s^j]A$ & $[s^j]B$\\\hline
+\endhead
+0 & {-}62224 & {-}339738624 & 65536\\
+1 & 186672 & 679280640 & {-}278528\\
+2 & 456096 & 3058483200 & 340561920\\
+3 & {-}1555280 & {-}8751722496 & {-}680412160\\
+4 & {-}1865760 & {-}6102650880 & {-}2604957328\\
+5 & 5805504 & 42343983024 & 7851847968\\
+6 & 6692888 & {-}31323885408 & 2607366736\\
+7 & {-}13234536 & {-}81044376192 & {-}32446490240\\
+8 & {-}17525520 & 183198116384 & 35232432816\\
+9 & 19051760 & {-}40246349248 & 42355625408\\
+10 & 1044252504 & {-}307961723136 & {-}142894075048\\
+11 & {-}3073330992 & 434593034056 & 90884163984\\
+12 & {-}688686641 & {-}102900423056 & 126821843320\\
+13 & 8927316075 & {-}458270671296 & {-}289267077272\\
+14 & {-}3527634150 & 519595435736 & 130052516280\\
+15 & {-}8677213507 & {-}190972433392 & 177305444984\\
+16 & 3507151656 & {-}192592259136 & {-}190993816657\\
+17 & 5380558488 & {-}82326017189 & {-}13148523990\\
+18 & 244237845 & 129237959050 & 7640779477\\
+19 & {-}8281660935 & 598726680024 & 262429509322\\
+20 & 4204399616 & {-}1008148472044 & {-}195420819561\\
+21 & 7950200832 & 250841074688 & {-}268914338422\\
+22 & {-}10038718464 & 920108531712 & 557901171515\\
+23 & 633210880 & {-}990896393216 & {-}203870616576\\
+24 & 6163752960 & 247495548928 & {-}312052465664\\
+25 & {-}5056665600 & 551161774080 & 404849966080\\
+26 & 72058880 & {-}454255501312 & {-}131936117760\\
+27 & 2242652160 & 149747351552 & {-}160540707840\\
+28 & {-}1415577600 & 154760798208 & 152405474304\\
+29 & 131072000 & {-}109457702912 & {-}56086013952\\
+30 & 415236096 & 46227521536 & {-}40233446400\\
+31 & {-}223346688 & 17002659840 & 30780948480\\
+32 & 48234496 & {-}11335106560 & {-}13385072640\\
+33 & 31457280 & 5667553280 & {-}4010803200\\
+34 & {-}15728640 & 0 & 2673868800\\
+35 & 5242880 & 0 & {-}1336934400\\
+\end{longtable}
+\endgroup
+Here $R_{35}(s)=\sum_{j=0}^{35}r_js^j$. The linear subresultant factors exactly as
+\[
+L(s,p)=270215977642229760000\,(s+1)^{2}\bigl(A(s)p+B(s)\bigr).
+\]
+On each of the three positive $R_{35}$ intervals, directed interval evaluation excludes $A(s)=0$, so $p=-B(s)/A(s)$ is unique. Two candidates have $s^2-4p<0$ and are nonphysical; the remaining candidate has $p>0$ and $s^2-4p>0$.
+\subsection{Original-system Krawczyk certificate and value comparison}
+The physical candidate is certified directly for the original system $(S,J)$. The input box is
+\begin{align*}
+s&\in 0.996231103798796223447754200237\;\pm\;4.787\times 10^{-82},\\
+p&\in 0.152772010079968269508553370478\;\pm\;3.033\times 10^{-79}.
+\end{align*}
+With the midpoint inverse Jacobian as preconditioner, the Krawczyk image satisfies
+\begin{align*}
+K_s&\subset 0.996231103798796223447754200237\;\pm\;7.270\times 10^{-92},\\
+K_p&\subset 0.152772010079968269508553370478\;\pm\;2.050\times 10^{-91}.
+\end{align*}
+The image radii are respectively of order $10^{-91}$, whereas the input radii are of order $10^{-82}$ and $10^{-79}$. The complete midpoint Jacobian, interval Jacobian, preconditioner, image, determinant enclosure, and strict interior margins are recorded in \texttt{krawczyk\_certificate.json}. Hence the physical box contains exactly one root of $S=J=0$.
+The induced positive contact box is
+\begin{align*}
+X&\in[0.18933230597424480810,0.18933230597424480812],\\
+Y&\in[0.80689879782455141533,0.80689879782455141535].
+\end{align*}
+Directed interval evaluation gives
+\begin{align*}
+\alpha&\ge 7.19086505789312952683362981380852944365,\\
+\alpha&\le 7.19086505789312952683362981380852944366.
+\end{align*}
+and, at the unique positive diagonal critical point,
+\[
+R_{\mathrm{diag}}\in[7.93244730249540721542,7.93244730249540721544].
+\]
+The intervals are disjoint. Coercivity therefore makes the off-diagonal orbit the complete set of global minimizers. The interval Hessian of $\log(P/Q)$ has positive first principal minor and positive determinant on both contact boxes.
+\subsection{Certificate provenance and replay layers}
+The complete reconstruction script begins from $P$ and $Q$ and regenerates all algebraic and interval objects. A separate downstream Arb replay reads the certified boxes and reevaluates the original critical equations, coefficient, phases, Hessian, and diagonal comparison; it is intentionally not described as an independent elimination. The certificate manifest uses schema \texttt{sonc-constructed-witness-certificate-v1} and hashes every modular artifact and every load-bearing certificate source. A schema test verifies those hashes and the required root-count, physical-candidate, and zero-count fields.

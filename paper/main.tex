@@ -1,0 +1,927 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools,amsthm}
+\usepackage{bm}
+\usepackage{booktabs,longtable,array}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{csquotes}
+\usepackage[american]{babel}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{microtype}
+\setlength{\emergencystretch}{3em}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black,breaklinks=true]{hyperref}
+\usepackage{xurl}
+\usepackage[capitalize,noabbrev]{cleveref}
+\hypersetup{pdftitle={Nonseparability characterizes SONC exactness for interior signed supports},pdfauthor={Logan M. Dixon}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\relint}{\operatorname{relint}}
+\newcommand{\lin}{\operatorname{lin}}
+\newcommand{\aff}{\operatorname{aff}}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\SONC}{\mathrm{SONC}}
+\newcommand{\COP}{\mathrm{COP}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\Sing}{\operatorname{Sing}_{>0}}
+\newcommand{\DeltaK}{\Delta_{k-1}}
+\newcommand{\one}{\mathbf 1}
+
+\title{Nonseparability characterizes SONC exactness for interior signed supports}
+\author{Logan M. Dixon\thanks{Independent Researcher. Email:
+\texttt{lmdixon23@gmail.com}. ORCID: 0009-0001-0592-462X.}}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $A_+,A_-\subset\R^n$ be finite and disjoint, with $A_+$ full dimensional and $A_-$ contained in the interior of $\conv(A_+)$. We prove that the signed support $(A_+,A_-)$ is SONC-exact if and only if it is nonseparable in the sense of Feliu, Ferrer, and Telek. Thus a polyhedral condition on the common refinement of the regular subdivisions of $A_+$ decides whether every nonnegative signomial with that exact sign pattern is a sum of nonnegative circuit signomials. For the new implication, a separating regular subdivision forces a toric degeneration of the positive exponential family onto a lower-dimensional carrier face. Covariance collapses in a transverse direction, and the induced phase free energy becomes nonconvex. Convex duality then produces a globally nonnegative signomial with the prescribed support and at least two positive singular zeros, which cannot admit a SONC decomposition. We also derive an explicit degeneration bound, give a standalone proof for two negative exponents, and certify a three-negative witness by exact elimination, Sturm theory, and interval arithmetic.
+\end{abstract}
+
+\medskip
+\noindent\textbf{2020 Mathematics Subject Classification.} 14P10 (primary); 90C23, 52C45.
+
+\smallskip
+\noindent\textbf{Keywords.} SONC polynomials; signed supports; nonseparability; regular subdivisions; polynomial optimization; positive discriminants; exponential families; phase coexistence.
+
+\section{Introduction}
+
+Fix disjoint finite exponent sets $A_+,A_-\subset\R^n$. A signomial with this exact signed support has the form
+\begin{equation}\label{eq:signomial}
+ f_c(x)=\sum_{a\in A_+}c_a x^a-\sum_{b\in A_-}c_bx^b,
+ \qquad c\in\R_{>0}^{A_+\cup A_-}.
+\end{equation}
+The question studied here is a support question: for which pairs $(A_+,A_-)$ does global nonnegativity of every signomial in \eqref{eq:signomial} force a decomposition into nonnegative circuit signomials?
+
+Feliu, Ferrer, and Telek introduced a polyhedral condition called \emph{nonseparability}. It is defined by the common refinement of all regular subdivisions of $A_+$, and they proved that nonseparable signed supports are SONC-exact \cite[Theorem~3.16]{FFT}. We prove the converse when the negative exponents lie in the interior of the positive Newton polytope.
+
+\begin{theorem}[Main theorem]\label{thm:main}
+Let $A_+,A_-\subset\R^n$ be finite, nonempty, and disjoint. Assume that $A_+$ is full dimensional and
+\[
+ A_-\subset\operatorname{int}\conv(A_+).
+\]
+Then the following are equivalent.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Every globally nonnegative signomial with exact signed support $(A_+,A_-)$ is SONC.
+\item The pair $(A_+,A_-)$ is nonseparable.
+\end{enumerate}
+\end{theorem}
+
+Only the implication \textup{(i)}$\Rightarrow$\textup{(ii)} is new. Suppose that the support is separable. We choose a regular subdivision that separates the negative exponents and follow a carrier face crossed by their convex hull. A toric change of the positive coefficients concentrates the associated mean-constrained exponential family on that face. Covariance then collapses in a transverse direction, while the inverse covariance diverges.
+
+The negative exponents form a second exponential family, parametrized by a probability simplex. Its free energy has two competing terms: entropy, which is convex, and the pullback of the positive-family Legendre transform, whose curvature contains the diverging inverse covariance. The phase variable records how the total negative mass is distributed among the negative exponents. Negative curvature means that a single coefficient choice can support more than one globally optimal phase.
+
+For a sufficiently strong toric degeneration, the Legendre term defeats entropy in one direction. Convexification then produces several interior contact phases, and Gibbs--Fenchel duality turns them into distinct global maximizers of one log-ratio potential. Scaling that potential yields a nonnegative signomial with the prescribed support and at least two positive singular zeros. Such a signomial cannot be SONC by \cite[Lemma~3.7]{FFT}.
+
+This argument is developed in three stages. Sections~2--4 pass from a separating subdivision to negative curvature of the phase free energy. Sections~5 and~6 convert that curvature into coexistence and prove the main theorem. Section~7 gives a standalone scalar proof for two negative exponents. The final sections record consequences, a quantitative bound, and a certified three-negative example.
+
+There is directly related announced work by Telek and de Wolff. Public abstracts from 2025 describe necessary and sufficient combinatorial conditions for SONC exactness and an approach based on singular Viro patchworking and the positive $A$-discriminant \cite{TelekKonstanz,TelekSIAM}. Their manuscript is also cited as in preparation in \cite{FFT}. It was not publicly available for a proof-level comparison when this version was prepared. The argument here was developed independently and uses mean-constrained toric degeneration, covariance collapse, and multiphase convex duality. We therefore make no claim of priority for the broad characterization statement.
+
+\section{Signed supports, subdivisions, and imported results}
+
+We use logarithmic coordinates $x_i=e^{z_i}$. Then \eqref{eq:signomial} becomes
+\[
+ F_c(z)=\sum_{a\in A_+}c_a e^{a\cdot z}-\sum_{b\in A_-}c_b e^{b\cdot z}.
+\]
+Global nonnegativity on $\R_{>0}^n$ is equivalent to nonnegativity of $F_c$ on $\R^n$.
+
+\begin{definition}[Circuit signomial and SONC cone]
+Let $V\subseteq A_+$ be affinely independent and let $\beta\in\relint\conv(V)$. A \emph{circuit signomial} has the form
+\[
+ g(z)=\sum_{a\in V}u_a e^{a\cdot z}-v e^{\beta\cdot z},
+ \qquad u_a>0,\ v>0.
+\]
+It is a nonnegative circuit signomial when $g\ge0$ on $\R^n$. For a fixed signed support $(A_+,A_-)$, the SONC cone is the conic hull of nonnegative circuit signomials whose positive exponents lie in $A_+$ and whose unique negative exponent lies in $A_-$, together with nonnegative monomials supported on $A_+$. This agrees with the fixed-support convention in \cite[Section~3.2]{FFT}.
+\end{definition}
+
+\begin{definition}[SONC signed support]
+A signed support $(A_+,A_-)$ is called a \emph{SONC signed support} if every globally nonnegative signomial with exact signed support $(A_+,A_-)$ belongs to the SONC cone.
+\end{definition}
+
+Let $P=\conv(A_+)$. A height vector $h=(h_a)_{a\in A_+}$ induces a regular subdivision $\mathcal T_h$ of $P$ by projecting the lower faces of the lifted polytope
+\[
+ \conv\{(a,h_a):a\in A_+\}\subset\R^{n+1}.
+\]
+The common refinement of all regular subdivisions is a finite polyhedral subdivision of $P$.
+
+\begin{definition}[Nonseparability \cite{FFT}]
+Assume $A_+\cup A_-$ has affine dimension $n$ and $A_-\subset P$. The pair $(A_+,A_-)$ is \emph{nonseparable} if some full-dimensional cell of the common refinement of all regular subdivisions of $A_+$ contains $A_-$. Otherwise it is \emph{separable}.
+\end{definition}
+
+We use two published inputs.
+
+\begin{theorem}[Feliu--Ferrer--Telek \cite{FFT}]\label{thm:FFT}
+Under the hypotheses of Theorem~\ref{thm:main}:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item if $(A_+,A_-)$ is nonseparable, every globally nonnegative exact-support signomial is SONC;
+\item if an exact-support signomial is SONC, it has at most one positive singular zero.
+\end{enumerate}
+\end{theorem}
+
+Part \textup{(a)} is \cite[Theorem~3.16]{FFT}; part \textup{(b)} is \cite[Lemma~3.7]{FFT}. All remaining arguments are developed here.
+
+\section{From separability to a transverse carrier}
+
+\begin{lemma}[One witnessing subdivision]\label{lem:witness-subdivision}
+If $(A_+,A_-)$ is separable, then some regular subdivision $\mathcal T$ of $A_+$ has no cell containing all of $A_-$.
+\end{lemma}
+
+\begin{proof}
+A finite point configuration has only finitely many regular subdivisions. Suppose every regular subdivision had a cell containing all of $A_-$. Choose one such cell from each subdivision. Their intersection is a cell of the common refinement and contains $A_-$. Every cell of a polyhedral subdivision is a face of a maximal cell, and every maximal cell in a subdivision of the full-dimensional polytope $P$ is full dimensional; see \cite[Chapter~2]{DLRS}. Hence this common-refinement cell lies in a full-dimensional common-refinement cell. The latter also contains $A_-$, contradicting separability.
+\end{proof}
+
+Fix a witnessing subdivision $\mathcal T$. Put
+\[
+ Q=\conv(A_-),\qquad L=\lin(Q-Q).
+\]
+For $m\in P$, let $F_m$ be the minimal cell of $\mathcal T$ containing $m$, so $m\in\relint F_m$.
+
+\begin{theorem}[Carrier transversality]\label{thm:carrier}
+If no cell of $\mathcal T$ contains all of $A_-$, then there exist
+\[
+ m_0\in\relint Q,\qquad F=F_{m_0},\qquad D\in L
+\]
+such that
+\[
+ D\notin\lin(F-F).
+\]
+\end{theorem}
+
+\begin{proof}
+Suppose instead that $L\subseteq\lin(F_m-F_m)$ for every $m\in\relint Q$. Since $m\in\relint F_m$, a neighborhood of $m$ in the affine space $m+L=\aff Q$ lies in $\relint F_m$. Thus the carrier map $m\mapsto F_m$ is locally constant on the connected set $\relint Q$, hence constant. Its constant closed value contains $Q$, and therefore contains all of $A_-$, a contradiction.
+\end{proof}
+
+Write $A_-=\{b_1,\ldots,b_k\}$ and let $B=[b_1\ \cdots\ b_k]$.
+
+\begin{lemma}[Positive phase representation]\label{lem:positive-phase}
+Every $m_0\in\relint Q$ has a representation
+\[
+ m_0=B\lambda_0,\qquad \lambda_0\in\relint\Delta_{k-1}.
+\]
+Moreover,
+\[
+ L=\{Bv:\one^Tv=0\}.
+\]
+Thus every $D\in L$ has a tangent lift $v$ satisfying $\one^Tv=0$ and $Bv=D$.
+\end{lemma}
+
+\begin{proof}
+The equal-weight barycenter $q=k^{-1}\sum_jb_j$ lies in $\relint Q$. For sufficiently small $\varepsilon>0$, the point
+\[
+ m'=(m_0-\varepsilon q)/(1-\varepsilon)
+\]
+lies in $Q$. Combining any convex representation of $m'$ with the all-positive representation of $q$ gives a strictly positive representation of $m_0$. The final identity is the standard description of the direction space of an affine hull.
+\end{proof}
+
+\section{Mean-constrained toric degeneration}
+
+Index $A_+=\{a_1,\ldots,a_N\}$. Let $h\in\R^N$ induce the witnessing regular subdivision and define
+\begin{equation}\label{eq:partition}
+ P_\tau(z)=\sum_{i=1}^N e^{a_i\cdot z-\tau h_i},
+ \qquad
+ \phi_\tau(z)=\log P_\tau(z).
+\end{equation}
+Because $A_+$ affinely spans $\R^n$, $\phi_\tau$ is strictly convex and its gradient maps $\R^n$ diffeomorphically onto $\operatorname{int}P$; see, for example, the standard theory of minimal exponential families \cite{WainwrightJordan}.
+
+For $m\in\operatorname{int}P$, let $z_\tau(m)$ be determined by
+\[
+ \nabla\phi_\tau(z_\tau(m))=m.
+\]
+Define the probability vector
+\begin{equation}\label{eq:gibbs-positive}
+ p_{\tau,i}(m)=
+ \frac{e^{a_i\cdot z_\tau(m)-\tau h_i}}{P_\tau(z_\tau(m))}
+\end{equation}
+and the covariance matrix
+\[
+ \Sigma_\tau(m)=\sum_i p_{\tau,i}(m)(a_i-m)(a_i-m)^T
+ =\nabla^2\phi_\tau(z_\tau(m)).
+\]
+
+For fixed $m$, let
+\[
+ \mathcal P_m=
+ \left\{p\in\R_{\ge0}^N:
+ \one^Tp=1,\ \sum_ip_ia_i=m\right\}
+\]
+and let $\mathcal H(p)=-\sum_ip_i\log p_i$.
+
+\begin{proposition}[Mean-constrained variational formula]\label{prop:mean-variational}
+The vector $p_\tau(m)$ is the unique maximizer on $\mathcal P_m$ of
+\[
+ \mathcal H(p)-\tau h\cdot p.
+\]
+\end{proposition}
+
+\begin{proof}
+This is the Lagrange dual of the log-partition function. Strict concavity of entropy on the relative interior of $\mathcal P_m$ gives uniqueness, and the stationarity equations give \eqref{eq:gibbs-positive}.
+\end{proof}
+
+Let $F$ be the minimal carrier cell of $m$ in $\mathcal T_h$. Let $\widehat F$ be the lower face of the lifted polytope projecting to $F$, and put
+\[
+ I_F=\{i:(a_i,h_i)\in\widehat F\}.
+\]
+This set includes every configuration point lying on the lower carrier face, not only geometric vertices of $F$.
+
+\begin{theorem}[Carrier-face concentration]\label{thm:concentration}
+As $\tau\to+\infty$, $p_\tau(m)$ converges to the unique maximum-entropy point of
+\[
+ \{p\in\mathcal P_m:\supp p\subseteq I_F\}.
+\]
+In particular,
+\[
+ \operatorname{range}\left(\lim_{\tau\to\infty}\Sigma_\tau(m)\right)
+ =\lin(F-F).
+\]
+\end{theorem}
+
+\begin{proof}
+The compact set $\mathcal P_m$ contains feasible distributions supported on $I_F$. A supporting affine function $\ell_F$ for the lower face satisfies
+\[
+ h_i=\ell_F(a_i)\quad(i\in I_F),
+ \qquad
+ h_i>\ell_F(a_i)\quad(i\notin I_F).
+\]
+Hence the minimizers of $h\cdot p$ on $\mathcal P_m$ are exactly the feasible distributions supported on $I_F$. By Proposition~\ref{prop:mean-variational}, every accumulation point of $p_\tau(m)$ minimizes $h\cdot p$. Comparing the objective against any minimizer shows that an accumulation point maximizes entropy on that minimizing face. Strict concavity makes this maximizer unique, so the full sequence converges.
+
+Because $m\in\relint F$, there is a feasible distribution with positive mass on every index in $I_F$. The entropy maximizer is therefore positive on all such indices. Those points affinely span $F$, so the limiting covariance has range exactly $\lin(F-F)$.
+\end{proof}
+
+\begin{corollary}[Inverse-metric divergence]\label{cor:inverse-divergence}
+If $D\notin\lin(F-F)$, then
+\[
+ D^T\Sigma_\tau(m)^{-1}D\longrightarrow+\infty.
+\]
+\end{corollary}
+
+\begin{proof}
+Let $T=\lin(F-F)$ and let $\nu$ be the orthogonal projection of $D$ onto $T^\perp$. Then $\nu\ne0$ and $D\cdot\nu=\|\nu\|^2$. Theorem~\ref{thm:concentration} gives $\nu^T\Sigma_\tau\nu\to0$. Cauchy--Schwarz in the $\Sigma_\tau$ metric gives
+\[
+ (D\cdot\nu)^2
+ \le
+ (D^T\Sigma_\tau^{-1}D)(\nu^T\Sigma_\tau\nu),
+\]
+which proves the claim.
+\end{proof}
+
+The argument can be made quantitative.
+
+\begin{proposition}[Explicit degeneration bound]\label{prop:quantitative}
+Let $\ell_F$ support the carrier lower face and define
+\[
+ \delta_i=h_i-\ell_F(a_i),
+ \qquad
+ \Delta_F=\min_{i\notin I_F}\delta_i>0.
+\]
+The carrier $F$ is proper, because the witnessing subdivision has no cell containing all of $A_-$. Hence $I_F\ne\{1,\ldots,N\}$, $\Delta_F>0$, and every $q$ supported on $I_F$ satisfies $\mathcal H(q)\le\log|I_F|<\log N$. Choose such a $q\in\mathcal P_m$. Let $\nu\in\lin(F-F)^\perp$ and write
+\[
+ c_\nu=\nu\cdot a_i\quad(i\in I_F),
+ \qquad
+ R_\nu=\max_i|\nu\cdot a_i-c_\nu|.
+\]
+Then
+\begin{equation}\label{eq:mass-bound}
+ \sum_{i\notin I_F}p_{\tau,i}(m)
+ \le
+ \frac{\log N-\mathcal H(q)}{\tau\Delta_F}
+ \le
+ \frac{\log N}{\tau\Delta_F},
+\end{equation}
+and, whenever $D\cdot\nu\ne0$,
+\begin{equation}\label{eq:inverse-bound}
+ D^T\Sigma_\tau(m)^{-1}D
+ \ge
+ \frac{\tau\Delta_F(D\cdot\nu)^2}
+ {R_\nu^2(\log N-\mathcal H(q))}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The optimality of $p_\tau$ against $q$ gives
+\[
+ \mathcal H(p_\tau)-\tau h\cdot p_\tau
+ \ge
+ \mathcal H(q)-\tau\ell_F(m).
+\]
+Since
+\[
+ h\cdot p_\tau
+ \ge
+ \ell_F(m)+\Delta_F\sum_{i\notin I_F}p_{\tau,i},
+\]
+and $\mathcal H(p_\tau)\le\log N$, inequality \eqref{eq:mass-bound} follows. Since $\nu\cdot a_i=c_\nu$ on $I_F$,
+\[
+ \nu^T\Sigma_\tau\nu
+ =\operatorname{Var}_{p_\tau}(\nu\cdot a)
+ \le
+ \sum_i p_{\tau,i}(\nu\cdot a_i-c_\nu)^2
+ \le
+ R_\nu^2\sum_{i\notin I_F}p_{\tau,i}.
+\]
+Combine this with the covariance Cauchy--Schwarz inequality used in Corollary~\ref{cor:inverse-divergence}.
+\end{proof}
+
+\section{The negative-phase free energy}
+
+Let $A_-=\{b_1,\ldots,b_k\}$, let $B=[b_1\ \cdots\ b_k]$, and set
+\[
+ E(\lambda)=\sum_{j=1}^k\lambda_j\log\lambda_j,
+ \qquad \lambda\in\DeltaK,
+\]
+with $0\log0=0$. Let $\phi_\tau^*$ be the Legendre transform of $\phi_\tau$ and define
+\begin{equation}\label{eq:G}
+ G_\tau(\lambda)=E(\lambda)-\phi_\tau^*(B\lambda).
+\end{equation}
+For $\rho\in\R^k$, define
+\begin{equation}\label{eq:H}
+ H_{\tau,\rho}(z)=
+ \log\sum_{j=1}^k e^{\rho_j+b_j\cdot z}-\phi_\tau(z).
+\end{equation}
+Since $Q=\conv(A_-)$ is compactly contained in $\operatorname{int}P$, all relevant Legendre transforms are finite and smooth.
+
+\begin{lemma}[Log-ratio coercivity]\label{lem:coercivity}
+For every finite $\rho\in\R^k$,
+\[
+ H_{\tau,\rho}(z)\longrightarrow-\infty
+ \qquad(\|z\|\to\infty).
+\]
+Consequently its global maximum is finite and attained.
+\end{lemma}
+
+\begin{proof}
+Let $h_P$ and $h_Q$ be the support functions of $P$ and $Q$. Compact containment gives
+\[
+ \delta=\min_{\|u\|=1}\bigl(h_P(u)-h_Q(u)\bigr)>0.
+\]
+Along $z=ru$, the numerator in \eqref{eq:H} is bounded above by $C_1+r h_Q(u)$, while the denominator logarithm is bounded below by $-C_2+r h_P(u)$, with constants depending only on the fixed coefficients. Hence $H_{\tau,\rho}(ru)\le C-r\delta$ uniformly in $u$.
+\end{proof}
+
+\begin{proposition}[Gibbs--Fenchel identity]\label{prop:gibbs-fenchel}
+For every $\rho\in\R^k$,
+\begin{equation}\label{eq:dual-identity}
+ \max_{z\in\R^n}H_{\tau,\rho}(z)
+ =
+ \max_{\lambda\in\DeltaK}
+ \left[\rho\cdot\lambda-G_\tau(\lambda)\right].
+\end{equation}
+If an interior $\lambda$ maximizes the right side and
+\[
+ z=\nabla\phi_\tau^*(B\lambda),
+\]
+then $z$ maximizes the left side and
+\begin{equation}\label{eq:posterior}
+ \lambda_j=
+ \frac{e^{\rho_j+b_j\cdot z}}
+ {\sum_\ell e^{\rho_\ell+b_\ell\cdot z}}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The entropy variational identity gives
+\[
+ \log\sum_j e^{\rho_j+b_j\cdot z}
+ =
+ \max_{\lambda\in\DeltaK}
+ \left[\rho\cdot\lambda+(B\lambda)\cdot z-E(\lambda)\right].
+\]
+Taking the maximum over $(z,\lambda)$ and using the definition of $\phi_\tau^*$ gives \eqref{eq:dual-identity}. At an interior maximizing phase, the simplex first-order condition yields
+\[
+ \log\lambda_j+1-b_j\cdot z-\rho_j=\eta
+\]
+for a common scalar $\eta$, which is equivalent to \eqref{eq:posterior}. Fenchel equality then gives joint optimality.
+\end{proof}
+
+\begin{proposition}[Tangent Hessian]\label{prop:hessian}
+Let $\lambda\in\relint\DeltaK$, $m=B\lambda$, and let $v$ satisfy $\one^Tv=0$. Then
+\begin{equation}\label{eq:hessian}
+ v^T\nabla^2G_\tau(\lambda)v
+ =
+ \sum_{j=1}^k\frac{v_j^2}{\lambda_j}
+ -(Bv)^T\Sigma_\tau(m)^{-1}(Bv).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The entropy Hessian is $\diag(1/\lambda_j)$ on the simplex tangent space. Legendre duality gives
+\[
+ \nabla^2\phi_\tau^*(m)=\Sigma_\tau(m)^{-1}.
+\]
+Applying the chain rule to \eqref{eq:G} gives \eqref{eq:hessian}.
+\end{proof}
+
+We now place the two families on the same phase simplex. The transverse direction from Theorem~\ref{thm:carrier} has a tangent lift by Lemma~\ref{lem:positive-phase}; Corollary~\ref{cor:inverse-divergence} then makes the negative term in \eqref{eq:hessian} arbitrarily large. This is the only point at which the toric parameter must be chosen large.
+
+\begin{corollary}[Negative phase curvature]\label{cor:negative-curvature}
+If $(A_+,A_-)$ is separable, then for all sufficiently large $\tau$ there exist
+\[
+ \lambda_0\in\relint\DeltaK,
+ \qquad
+ 0\ne v\in T_{\lambda_0}\DeltaK
+\]
+such that
+\[
+ v^T\nabla^2G_\tau(\lambda_0)v<0.
+\]
+Moreover, Proposition~\ref{prop:quantitative} gives an explicit sufficient lower bound on $\tau$.
+\end{corollary}
+
+\section{Convexification and phase coexistence}
+
+\begin{lemma}[Boundary steepness]\label{lem:boundary}
+For every finite $\rho\in\R^k$, no boundary point of $\DeltaK$ minimizes
+\[
+ G_\tau(\lambda)-\rho\cdot\lambda.
+\]
+\end{lemma}
+
+\begin{proof}
+Suppose $\lambda_j=0$ and choose $r$ with $\lambda_r>0$. Along
+\[
+ \lambda(\varepsilon)=\lambda+\varepsilon(e_j-e_r),
+\]
+the entropy increment is $\varepsilon\log\varepsilon+O(\varepsilon)$, whose right derivative is $-\infty$. The map $\phi_\tau^*$ has bounded derivative on the compact set $Q=B\DeltaK\Subset\operatorname{int}P$, and the affine perturbation has finite derivative. Therefore the objective decreases for sufficiently small positive $\varepsilon$.
+\end{proof}
+
+\begin{theorem}[Convex-envelope coexistence]\label{thm:coexistence}
+Let $G:\DeltaK\to\R$ be continuous and $C^2$ on the simplex interior. Suppose
+\[
+ v^T\nabla^2G(\lambda_0)v<0
+\]
+for some interior $\lambda_0$ and nonzero tangent $v$. Assume that no boundary point minimizes $G-\rho\cdot\lambda$ for any finite $\rho$. Then there is a finite $\rho\in\R^k$ such that $G-\rho\cdot\lambda$ has at least two distinct global minimizers, all in the simplex interior.
+\end{theorem}
+
+\begin{proof}
+For sufficiently small $t>0$, the points $\lambda_\pm=\lambda_0\pm tv$ lie in the simplex interior and Taylor expansion gives
+\[
+ \frac{G(\lambda_+)+G(\lambda_-)}2<G(\lambda_0).
+\]
+Thus the lower convex envelope $G^{**}$ satisfies
+\[
+ G^{**}(\lambda_0)<G(\lambda_0).
+\]
+Because $G^{**}$ is finite and convex, it has a finite relative subgradient $\rho$ at the interior point $\lambda_0$. The affine function
+\[
+ \ell(\lambda)=G^{**}(\lambda_0)+\rho\cdot(\lambda-\lambda_0)
+\]
+satisfies $\ell\le G^{**}\le G$.
+
+The convex-envelope value at $\lambda_0$ has an attained finite convex representation
+\[
+ \lambda_0=\sum_{s=1}^r\theta_s\lambda^{(s)},
+ \qquad
+ G^{**}(\lambda_0)=\sum_{s=1}^r\theta_sG(\lambda^{(s)}),
+\]
+with $\theta_s>0$ and $r\le k+1$. Since every difference
+\[
+ G(\lambda^{(s)})-\ell(\lambda^{(s)})
+\]
+is nonnegative and their weighted sum is zero, equality holds at each representing point. Hence every $\lambda^{(s)}$ globally minimizes $G-\rho\cdot\lambda$. After merging repeated representing points, the strict gap rules out a one-point representation, and the boundary hypothesis places all contacts in the interior.
+\end{proof}
+
+\section{Proof of the main theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Assume first that $(A_+,A_-)$ is separable. Lemma~\ref{lem:witness-subdivision} gives a regular subdivision $\mathcal T_h$ with no cell containing all negative exponents. Theorem~\ref{thm:carrier} gives $m_0\in\relint Q$, its carrier $F$, and $D\in\lin(Q-Q)$ transverse to $F$. By Lemma~\ref{lem:positive-phase}, choose
+\[
+ \lambda_0\in\relint\DeltaK,
+ \qquad
+ v\in T_{\lambda_0}\DeltaK
+\]
+with $B\lambda_0=m_0$ and $Bv=D$.
+
+For sufficiently large $\tau$, Corollary~\ref{cor:negative-curvature} gives
+\[
+ v^T\nabla^2G_\tau(\lambda_0)v<0.
+\]
+Apply Theorem~\ref{thm:coexistence} and Lemma~\ref{lem:boundary}. There exist $\rho\in\R^k$ and at least two distinct interior global maximizers
+\[
+ \lambda^{(1)},\ldots,\lambda^{(r)}
+\]
+of $\rho\cdot\lambda-G_\tau(\lambda)$. For every $s$, put
+\[
+ z^{(s)}=\nabla\phi_\tau^*(B\lambda^{(s)}).
+\]
+Proposition~\ref{prop:gibbs-fenchel} shows that each $z^{(s)}$ globally maximizes $H_{\tau,\rho}$. Distinct phase vectors give distinct maximizers because the softmax posterior \eqref{eq:posterior} is unique at fixed $(z,\rho)$.
+
+Let
+\[
+ M=\max_zH_{\tau,\rho}(z).
+\]
+Then
+\begin{equation}\label{eq:witness}
+ f(z)=P_\tau(z)-e^{-M}\sum_{j=1}^ke^{\rho_j+b_j\cdot z}
+\end{equation}
+is globally nonnegative, and equality holds at every $z^{(s)}$. Every positive coefficient $e^{-\tau h_i}$ and every negative magnitude $e^{-M+\rho_j}$ is strictly positive. Since $A_+\cap A_-=\varnothing$, the signed support is exactly $(A_+,A_-)$. A zero of a differentiable globally nonnegative function is singular in logarithmic coordinates. Under $x_i=e^{z_i}$, one has $\partial_{z_i}=x_i\partial_{x_i}$, so these are positive singular zeros of the original signomial. By Theorem~\ref{thm:FFT}\textup{(b)}, $f$ is not SONC. Therefore a separable pair is not a SONC signed support.
+
+The reverse implication is Theorem~\ref{thm:FFT}\textup{(a)}.
+\end{proof}
+
+\section{The two-negative case: a standalone scalar proof}\label{sec:two-phase}
+
+The full theorem includes the two-negative result, but the specialization has a particularly transparent scalar form and admits a standalone branch-continuity proof.
+
+Let $A_-=\{b,c\}$, put $D=b-c$, and write
+\[
+ m_\lambda=c+\lambda D,
+ \qquad 0<\lambda<1.
+\]
+For a fixed positive exponential family $\phi$, let $z(m)=(\nabla\phi)^{-1}(m)$ and $\Sigma(m)=\nabla^2\phi(z(m))$. Define
+\begin{equation}\label{eq:R}
+ R(\lambda)=
+ \log\frac{\lambda}{1-\lambda}
+ -D\cdot z(m_\lambda).
+\end{equation}
+
+\begin{proposition}[Scalar phase derivative]\label{prop:scalar}
+One has
+\begin{equation}\label{eq:Rprime}
+ R'(\lambda)=
+ \frac1{\lambda(1-\lambda)}
+ -D^T\Sigma(m_\lambda)^{-1}D.
+\end{equation}
+If $R'(\lambda_0)<0$ at some interior point, then there is a coefficient ratio for which
+\[
+ \log\left(e^{\rho+b\cdot z}+e^{c\cdot z}\right)-\phi(z)
+\]
+has at least two distinct global maximizers.
+\end{proposition}
+
+\begin{proof}
+Differentiating $\nabla\phi(z(m_\lambda))=m_\lambda$ gives
+\[
+ \frac{dz}{d\lambda}=\Sigma(m_\lambda)^{-1}D,
+\]
+which proves \eqref{eq:Rprime}. We now give a standalone scalar coexistence argument.
+For $\rho\in\R$, set
+\[
+ H_\rho(z)=\log\!\left(e^{\rho+b\cdot z}+e^{c\cdot z}\right)-\phi(z).
+\]
+Because $b$ and $c$ are strictly interior to the positive Newton polytope, $H_\rho(z)\to-\infty$ as $\|z\|\to\infty$, uniformly for $\rho$ in compact intervals. At a stationary point define
+\[
+ \lambda=\frac{e^{\rho+b\cdot z}}{e^{\rho+b\cdot z}+e^{c\cdot z}}.
+\]
+The critical equation is $\nabla\phi(z)=m_\lambda$, so $z=z(m_\lambda)$, and the logistic identity is $\rho=R(\lambda)$. Moreover,
+\[
+ \nabla^2H_\rho(z)=\lambda(1-\lambda)DD^T-\Sigma(m_\lambda).
+\]
+At a global maximizer this Hessian is negative semidefinite. The rank-one determinant criterion therefore gives
+\[
+ \lambda(1-\lambda)D^T\Sigma(m_\lambda)^{-1}D\le1,
+\]
+which is equivalent to $R'(\lambda)\ge0$.
+
+Suppose, for contradiction, that every $H_\rho$ has a unique global maximizer. Uniform coercivity on compact $\rho$-intervals and uniqueness imply continuity of its associated parameter $\lambda_\rho$. As $\rho\to-\infty$, the maximizers converge to the unique maximizer of $c\cdot z-\phi(z)$, hence $\lambda_\rho\to0$. Similarly $\lambda_\rho\to1$ as $\rho\to+\infty$. If $R'(\lambda_0)<0$, then $R'<0$ on an open interval containing $\lambda_0$. The continuous path $\lambda_\rho$ from $0$ to $1$ must enter that interval, contradicting the necessary condition $R'(\lambda_\rho)\ge0$ for a global maximizer. Thus some $H_\rho$ has at least two distinct global maximizers.
+\end{proof}
+
+\begin{corollary}[Two-negative characterization]\label{cor:two-negative}
+Let $A_+$ be finite and full dimensional, and let $b,c\in\operatorname{int}\conv(A_+)$ be distinct and disjoint from $A_+$. Then
+\[
+ (A_+,\{b,c\})\text{ is a SONC signed support}
+ \quad\Longleftrightarrow\quad
+ (A_+,\{b,c\})\text{ is nonseparable}.
+\]
+\end{corollary}
+
+\begin{proof}
+This is Theorem~\ref{thm:main} for $k=2$. A standalone proof follows from the scalar mechanism above: a witnessing subdivision gives a transverse carrier along the segment $[c,b]$. Corollary~\ref{cor:inverse-divergence} makes the second term in \eqref{eq:Rprime} arbitrarily large, so Proposition~\ref{prop:scalar} constructs the required two-zero non-SONC witness.
+\end{proof}
+
+\section{Consequences and examples}
+
+\subsection{Square supports}
+
+Let
+\[
+ A_+=\{(0,0),(1,0),(0,1),(1,1)\}.
+\]
+The common refinement is cut out by the two diagonals
+\[
+ L_1(x,y)=x-y,
+ \qquad
+ L_2(x,y)=x+y-1.
+\]
+
+\begin{corollary}[Exact square criterion]
+For interior $b,c$ disjoint from $A_+$,
+\[
+ (A_+,\{b,c\})\text{ is a SONC signed support}
+\]
+if and only if
+\[
+ L_1(b)L_1(c)\ge0,
+ \qquad
+ L_2(b)L_2(c)\ge0.
+\]
+The weak inequalities include points lying on one or both diagonals.
+\end{corollary}
+
+\subsection{A minimum-cardinality obstruction}
+
+For $n=2$, consider
+\[
+ A_+=\{(4,0),(2,0),(0,1),(0,-1)\},
+ \qquad
+ A_-=\{(1,0),(3,0)\}.
+\]
+The signomial
+\begin{equation}\label{eq:minimal-example}
+ f(x,y)=x^4+13x^2+2y+2y^{-1}-12x-6x^3
+\end{equation}
+factors as
+\[
+ f(x,y)=(x-1)^2(x-2)^2+2(y+y^{-1}-2).
+\]
+It is globally nonnegative and has exactly the two positive zeros $(1,1)$ and $(2,1)$. Its support is separable, so it is an explicit minimum-cardinality instance of the general theorem.
+
+In the full-dimensional interior regime, a non-SONC obstruction needs at least two negative exponents because the one-negative case is SONC-exact. It also needs at least $n+2$ positive exponents: $n+1$ full-dimensional positive exponents form a simplex, and simplex supports are SONC-exact for arbitrary interior negative support \cite[Theorem~1.2]{AETdW}. Therefore $n+4$ total exponents is the smallest possible cardinality. The displayed planar example attains this bound with four positive and two negative exponents.
+
+\subsection{Supporting discriminant self-intersections}
+
+The coexistence construction has a direct interpretation in coefficient space. Let $\widehat A$ be the augmented exponent matrix and let $C$ be a Gale matrix satisfying $\widehat AC=0$. If $S$ records the coefficient signs, the reduced Horn--Kapranov map on the signed positive chamber is
+\[
+ \Psi_C([t])=C^T\log(SCt).
+\]
+
+\begin{proposition}[Supporting discriminant self-intersection]\label{prop:supporting-discriminant}
+Let $c$ be the signed coefficient vector of a globally nonnegative exact-support signomial whose positive exponent set affinely spans $\R^n$. If the signomial has two distinct positive singular zeros, then the signed reduced Horn--Kapranov map has two distinct chamber points with the same image. The resulting self-intersection lies on the boundary of the copositive cone.
+\end{proposition}
+
+\begin{proof}
+Let $y_i$ be a singular logarithmic zero. The value and gradient equations imply that the signed exponentially weighted vector
+\[
+ q_i=S\bigl(|c|\odot e^{A^Ty_i}\bigr)
+\]
+lies in $\ker\widehat A$. Hence $q_i=Ct_i$ for a chamber point $[t_i]$. Since
+\[
+ \log(SCt_i)=\log|c|+A^Ty_i,
+\]
+we have
+\[
+ \Psi_C([t_i])=C^T\log|c|,
+\]
+because $C^TA^T=0$. Thus every positive singular zero maps to the same reduced discriminant point.
+
+It remains to distinguish the chamber points. If $[t_1]=[t_2]$, then the corresponding weighted coefficient vectors are proportional. Therefore $A^T(y_1-y_2)$ is a multiple of the all-ones vector. Full affine spanning of the positive exponent set forces $y_1=y_2$, contrary to the choice of distinct singular zeros. Hence $[t_1]$ and $[t_2]$ are distinct.
+
+Finally, global nonnegativity places the coefficient vector on the boundary of the copositive cone. The self-intersection is therefore supporting, rather than an intersection of indefinite branches.
+\end{proof}
+
+Applying the proposition to the witness \eqref{eq:witness} shows that separability forces a supporting self-intersection of the signed reduced discriminant. This connects the characterization with \cite{ForsgardDeWolff,DengRojasTelek}.
+
+\section{A quantitative bound and a constructive route}
+
+The proof is existential at the convex-envelope stage, but every step is finite dimensional. Proposition~\ref{prop:quantitative} makes the toric degeneration parameter explicit once a witnessing subdivision is known.
+
+\begin{corollary}[Explicit sufficient degeneration parameter]\label{cor:tau-bound}
+Use the notation of Proposition~\ref{prop:quantitative} and choose $v$ with $Bv=D$. It is sufficient to take
+\begin{equation}\label{eq:tau-bound}
+ \tau>
+ \frac{R_\nu^2(\log N-\mathcal H(q))}
+ {\Delta_F(D\cdot\nu)^2}
+ \sum_{j=1}^k\frac{v_j^2}{\lambda_{0,j}}
+\end{equation}
+to guarantee
+\[
+ v^T\nabla^2G_\tau(\lambda_0)v<0.
+\]
+\end{corollary}
+
+\begin{proof}
+Combine \eqref{eq:inverse-bound} with \eqref{eq:hessian}.
+\end{proof}
+
+The proof also suggests a finite certificate scheme.
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+\item Find a regular subdivision $\mathcal T_h$ with no cell containing $A_-$. The height vector $h$ is a finite separability certificate.
+\item Compute a transverse carrier $(m_0,F,D)$ and positive phase data $(\lambda_0,v)$.
+\item Use \eqref{eq:tau-bound} to choose $\tau$ with certified negative phase curvature.
+\item Compute a supporting affine functional of the lower convex envelope of $G_\tau$. A contact certificate consists of $\rho$, two disjoint phase boxes, and a global lower bound for $G_\tau-\rho\cdot\lambda$ outside them.
+\item Lift the contact phases through $z=\nabla\phi_\tau^*(B\lambda)$ and output the coefficient vector in \eqref{eq:witness}.
+\item Verify nonnegativity through the global inequality $H_{\tau,\rho}\le M$ and certify the two equality points by interval Newton or Krawczyk operators.
+\end{enumerate}
+
+No complexity claim is made here. The point is that each stage admits either exact algebraic data or a validated numerical certificate. Section~\ref{sec:certified-witness} carries out the full construction for a three-negative square support.
+
+
+\section{A certified three-negative witness}\label{sec:certified-witness}
+
+We finish with an example in which the construction can be checked from exact input data. It is independent of the proof of Theorem~\ref{thm:main}, but it shows that the coexistence mechanism can be turned into a finite certificate rather than located only by numerical search.
+
+Put
+\[
+ A_+=\{(0,0),(1,0),(0,1),(1,1)\},
+ \qquad
+ A_-=\left\{\left(\frac15,\frac15\right),
+ \left(\frac45,\frac15\right),
+ \left(\frac15,\frac45\right)\right\}.
+\]
+For $X,Y>0$, define
+\[
+ P(X,Y)=1+X^5+Y^5+4096X^5Y^5,
+ \qquad
+ Q(X,Y)=XY(1+X^3+Y^3),
+\]
+and let
+\[
+ \alpha=\min_{X,Y>0}\frac{P(X,Y)}{Q(X,Y)}.
+\]
+
+\begin{proposition}[Certified three-negative witness]\label{prop:certified-witness}
+The minimum above is attained at exactly two points, interchanged by $X\leftrightarrow Y$.  Numerically,
+\[
+ \begin{aligned}
+ \alpha&\ge 7.19086505789312952683362981380852944365,\\
+ \alpha&\le 7.19086505789312952683362981380852944366.
+ \end{aligned}
+\]
+Consequently
+\begin{align}\label{eq:certified-witness}
+ f(z_1,z_2)={}&1+e^{z_1}+e^{z_2}+4096e^{z_1+z_2}\\
+ &-\alpha\left(
+ e^{(z_1+z_2)/5}+e^{(4z_1+z_2)/5}+e^{(z_1+4z_2)/5}
+ \right)
+\end{align}
+is globally nonnegative on $\R^2$ and has exactly two zeros.
+\end{proposition}
+
+\begin{proof}
+The ratio $P/Q$ is coercive in logarithmic coordinates because every exponent of $Q$ lies strictly inside the Newton square of $P$.  Hence every global minimizer is an interior critical point.
+
+The exact certificate clears the two logarithmic critical equations and treats the diagonal and off-diagonal cases separately.  On the diagonal $X=Y$, the critical points are the positive roots of
+\[
+ 20480X^{13}+16384X^{10}+3X^5-5X^3-1=0.
+\]
+Sturm isolation gives exactly one positive root, and the corresponding ratio is enclosed by
+\[
+ \frac{P(X,X)}{Q(X,X)}
+ \in[7.93244730249540721542,7.93244730249540721544].
+\]
+
+For $X\ne Y$, put $s=X+Y$ and $p=XY$. Appendix~\ref{app:certificate} derives the original symmetric equations $S(s,p)=J(s,p)=0$ directly from the two critical equations and proves
+\[
+ \operatorname{Res}_p(S,J)=
+ -2702159776422297600000\,(s+1)^6R_{12}(s)R_{35}(s).
+\]
+Exact Sturm counts give no positive root for $R_{12}$ and exactly three positive roots for $R_{35}$. A linear subresultant determines a unique $p$ on each $R_{35}$ isolating interval. Two candidates satisfy $s^2-4p<0$ and therefore do not correspond to real $X,Y$. The remaining candidate is certified directly for the original system by an Arb Krawczyk operator and gives
+\[
+ X\in[0.18933230597424480810,0.18933230597424480812],
+\]
+\[
+ Y\in[0.80689879782455141533,0.80689879782455141535].
+\]
+The ratio enclosure at this pair is the displayed interval for $\alpha$, which lies strictly below the diagonal critical value. Symmetry supplies the swapped point, and the complete original-system critical enumeration shows that there are no others. Thus these are the only global minimizers of $P/Q$, proving $P-\alpha Q\ge0$ with exactly two equality points. Substituting $X=e^{z_1/5}$ and $Y=e^{z_2/5}$ gives \eqref{eq:certified-witness}.
+\end{proof}
+
+The two log-zero boxes are
+\[
+ z^{(1)}\approx(-8.32125787568093100089,-1.07278511998987502077),
+ \qquad
+ z^{(2)}=(z^{(1)}_2,z^{(1)}_1).
+\]
+The corresponding phase vectors are
+\[
+ \lambda^{(1)}\approx
+ (0.65267880824298063486,
+  0.00442969357780420649,
+  0.34289149817921515865),
+\]
+with $\lambda^{(2)}$ obtained by swapping the last two coordinates.  The horizontal affine function
+\[
+ \lambda\longmapsto\gamma,
+ \qquad
+ \gamma=\log\alpha
+ \in[1.97281147852822673741,1.97281147852822673742],
+\]
+is therefore a certified lower supporting plane for $G$ with two contact phases. The interval Hessian of $\log(P/Q)$ is positive definite at both contacts.
+
+The proof-bearing certificate has two layers. The reconstruction begins with the exact polynomials $P$ and $Q$ and derives the complete critical-point classification. A separately written downstream Arb replay then checks the contact equations, coefficient, phases, Hessian, and diagonal comparison from the certified boxes; it is not presented as an independent elimination. Appendix~\ref{app:certificate} describes the modular certificate and its exact coefficient tables. Global nonnegativity therefore rests on complete exact critical-point enumeration and outward-rounded interval arithmetic, not on the earlier floating-point prototype.
+
+\section{Discussion}
+
+Theorem~\ref{thm:main} replaces an equality of cones by a condition on subdivisions. The proof also identifies the obstruction when nonseparability fails. A separating subdivision drives the positive exponential family toward a lower-dimensional carrier. The normal covariance vanishes, the dual metric diverges, and the negative-phase free energy cannot remain convex. Multiple supporting phases are therefore not an auxiliary construction; they are the analytic trace of separability.
+
+The same mechanism suggests several further questions. First, the proof is constructive in principle, but no complexity bound is known for finding a witnessing subdivision or certifying all coexistence contacts. Second, Proposition~\ref{prop:quantitative} controls the onset of negative curvature but not the separation or multiplicity of the resulting phases. Third, the strict-interior assumption is used twice: to keep the Legendre transform smooth on the negative polytope and to obtain coercivity of the log-ratio potential. Negative exponents on the boundary should require a facewise version of the argument.
+
+The discriminant interpretation may provide a bridge to the announced patchworking approach of Telek and de Wolff. In the present proof, coexistence produces distinct points of a signed Horn--Kapranov chamber with the same reduced discriminant image. Understanding how these self-contacts move under the toric degeneration could connect the covariance picture here with singular Viro patchworking.
+
+\section{Verification and reproducibility}
+
+\paragraph{Artifact of record.}
+The accompanying repository is the artifact of record for this version. The canonical manuscript source is \path{paper/main.tex}; the exact witness data are stored under \path{results/constructed_witness_certificate/}; and the authoritative claim status is recorded in \path{verification/STATUS-LEDGER.md}.
+
+\paragraph{Reproduction protocol.}
+With Python 3.13 and the package versions in \path{requirements-lock.txt}, the command \texttt{bash} \path{run_all.sh} runs every maintained mathematical and certificate check. Release PDFs and source archives are distributed through versioned repository releases rather than tracked in the source tree.
+
+\paragraph{Claim-to-artifact map.}
+The universal characterization and its two-negative specialization are proved analytically; the symbolic scripts are corroborative. Directed Arb arithmetic certifies the quantitative benchmark.
+
+For Proposition~\ref{prop:certified-witness}, \path{code/reconstruct_certificate_from_exact_data.py} starts from the exact polynomials $P$ and $Q$ and regenerates the original critical equations, resultant factorization, Sturm isolations, linear subresultant, physical-root classification, original-system Krawczyk enclosure, contact boxes, coefficient interval, phase vectors, and Hessian bounds. The separately written \path{code/replay_downstream_interval_arithmetic.py} reevaluates the contact equations, coefficient, phases, Hessian, and diagonal comparison from the certified boxes. It does not repeat the elimination, Sturm isolation, subresultant construction, or Krawczyk existence proof.
+
+\paragraph{Independent checks.}
+A second implementation reconstructs the exact elimination and interval classification without importing the primary certificate module. This provides a separate code path for comparison with the primary reconstruction; it is corroborating computational evidence rather than a substitute for the analytic proof or formal peer review.
+
+\paragraph{Limitations and open obligations.}
+The theorem assumes that every negative exponent lies in the interior of the positive Newton polytope. No complexity bound is claimed for finding a witnessing subdivision or certifying all coexistence contacts. The quantitative estimate is sufficient rather than optimal. The broad characterization was publicly announced by Telek and de Wolff in 2025 talks, so we make no claim of priority for that statement. Formal journal peer review remains pending.
+
+\section*{Declarations}
+\paragraph{Funding.} No funding was received for this work.
+\paragraph{Competing interests.} The author declares no competing interests.
+\paragraph{Data and code availability.} Code, exact certificate data, and public reproducibility documentation are included in the accompanying repository. A public release URL and archival DOI will be added after deposition.
+\paragraph{AI assistance.} Text-to-text generative AI tools, including Claude and GPT, assisted with candidate exploration, code drafting and review, adversarial checking, and editorial revision. The author checked all mathematical claims, source attributions, code, and numerical certificates through hand derivation, source verification, and exact or validated numerical recomputation as appropriate, and assumes full responsibility for the work.
+
+\input{computational_appendix}
+
+\begin{thebibliography}{99}
+
+\bibitem{TelekKonstanz}
+M. L. Telek,
+\emph{Exactness of nonnegativity certificates: SOS, SONC, and SAGE},
+contributed talk, Winter School on Moments, Non-Negative Polynomials, and Algebraic Statistics,
+University of Konstanz, February 20, 2025,
+\url{https://www.uni-konstanz.de/zukunftskolleg/community/winter-school-2025-moments/}.
+
+\bibitem{TelekSIAM}
+M. L. Telek and T. de Wolff,
+\emph{SONC exactness and the positive $A$-discriminant},
+2025 SIAM Conference on Applied Algebraic Geometry, 2025,
+\url{https://meetings.siam.org/sess/dsp_talk.cfm?p=147031}.
+
+\bibitem{FFT}
+E. Feliu, J. Ferrer, and M. L. Telek,
+\emph{Copositivity, discriminants and nonseparable signed supports},
+arXiv:2512.07373v3, 2026.
+
+\bibitem{IlimanDeWolff}
+S. Iliman and T. de Wolff,
+\emph{Amoebas, nonnegative polynomials and sums of squares supported on circuits},
+Research in the Mathematical Sciences 3 (2016), Article 9.
+
+\bibitem{KNT}
+L. Katth\"an, H. Naumann, and T. Theobald,
+\emph{A unified framework of SAGE and SONC polynomials and its duality theory},
+Mathematics of Computation 90 (2021), 1297--1326.
+
+\bibitem{MCW}
+R. Murray, V. Chandrasekaran, and A. Wierman,
+\emph{Newton polytopes and relative entropy optimization},
+Foundations of Computational Mathematics 21 (2021), 1703--1737.
+
+\bibitem{AETdW}
+G. Averkov, J. Ellwanger, T. Theobald, and T. de Wolff,
+\emph{Nonnegativity of signomials with Newton simplex over $\mathcal A$-convex sets},
+arXiv:2504.10302v2, 2026.
+
+\bibitem{ForsgardDeWolff}
+J. Forsg\r ard and T. de Wolff,
+\emph{The algebraic boundary of the SONC cone},
+SIAM Journal on Applied Algebra and Geometry 6 (2022), 468--502.
+
+\bibitem{DengRojasTelek}
+W. Deng, J. M. Rojas, and M. L. Telek,
+\emph{Viro patchworking and the signed reduced $A$-discriminant},
+Journal of Symbolic Computation 132 (2026).
+
+\bibitem{GKZ}
+I. M. Gel'fand, M. M. Kapranov, and A. V. Zelevinsky,
+\emph{Discriminants, Resultants, and Multidimensional Determinants},
+Birkh\"auser, 1994.
+
+\bibitem{Rockafellar}
+R. T. Rockafellar,
+\emph{Convex Analysis},
+Princeton University Press, 1970.
+
+\bibitem{WainwrightJordan}
+M. J. Wainwright and M. I. Jordan,
+\emph{Graphical models, exponential families, and variational inference},
+Foundations and Trends in Machine Learning 1 (2008), 1--305.
+
+\bibitem{DLRS}
+J. A. De Loera, J. Rambau, and F. Santos,
+\emph{Triangulations: Structures for Algorithms and Applications},
+Springer, 2010.
+
+\bibitem{Ziegler}
+G. M. Ziegler,
+\emph{Lectures on Polytopes},
+Springer, 1995.
+
+\end{thebibliography}
+
+\end{document}

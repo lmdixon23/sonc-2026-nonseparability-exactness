@@ -1,0 +1,32 @@
+{
+  "manuscript_claims": [
+    {
+      "artifact": "original_critical_equations.json",
+      "claim": "original critical equations"
+    },
+    {
+      "artifact": "resultant_factorization.json",
+      "claim": "complete original-system resultant factorization"
+    },
+    {
+      "artifact": "sturm_certificates.json",
+      "claim": "R12 has zero and R35 has three positive roots"
+    },
+    {
+      "artifact": "subresultant_linear_relation.json",
+      "claim": "unique p recovery and physical candidate classification"
+    },
+    {
+      "artifact": "krawczyk_certificate.json",
+      "claim": "existence and uniqueness of the physical root"
+    },
+    {
+      "artifact": "critical_value_comparison.json",
+      "claim": "strict off-diagonal versus diagonal value comparison"
+    },
+    {
+      "artifact": "final_witness_intervals.json",
+      "claim": "coefficient, phases, and two zero boxes"
+    }
+  ]
+}

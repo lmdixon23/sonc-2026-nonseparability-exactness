@@ -1,0 +1,31 @@
+{
+  "artifact_hashes": {
+    "README.md": "9ba3902438d45b2ac1df7d4dde1272f4deef48e0263f666c2c6e047647a9726f",
+    "certificate_claim_crosswalk.json": "3edb412bdff4d646d1e0d5a9544177247bd363191ba586f215395545372a1f05",
+    "critical_value_comparison.json": "07223f98e8b25f1684394b2ea661ebdb9c4363d814639ffc48647a8700e1409c",
+    "final_witness_intervals.json": "e552b4f589ef0c1bb730a1e392cab9a449f41de07f65ffce3b581d8edc68d15a",
+    "krawczyk_certificate.json": "91517ebe3109a117e816cb2ca8acd42e90b8475c4adcb032746aabe07c3b5108",
+    "original_critical_equations.json": "b48534983010eb709aad32c5d1a6f2cd29b2322374d102681994b7e13a2ba29f",
+    "resultant_factorization.json": "9797ea92f7e3c18c42edece860e0fec2554e1756436f42ea18ed04f055106be2",
+    "sturm_certificates.json": "af995fb81440979d668a78deebb59cff2fd5efb347c6cdd186efd01344ad6141",
+    "sturm_sequences_full.json.gz": "8b1c710edf3c4d26a763dd220fadbf9c7326927f765d01d85bcd9c6d9ce8e7b8",
+    "subresultant_linear_relation.json": "a08e7aa31cdd597f5d6758be68fa32ec264537daa1a3c6b24c047357695b31e3"
+  },
+  "environment": {
+    "arb_precision_bits": 400,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.9",
+    "python_flint": "0.9.0",
+    "sympy": "1.14.0"
+  },
+  "generator_command": "python code/reconstruct_certificate_from_exact_data.py",
+  "schema": "sonc-constructed-witness-certificate-v1",
+  "source_hashes": {
+    "constructed_witness_exact_core.py": "a1fc5afbdf5e2fe2bc32cfb1bc73c9ac73461ff40503b7361a674503931c4fb6",
+    "generate_computational_appendix.py": "152c4732885d24d4610993575162200ed271990b06964e25b470b5d934ff423f",
+    "reconstruct_certificate_from_exact_data.py": "189f438238a565b75f7704ab40edee702b2c7a32031b4d9435e04bb2497ad155",
+    "replay_downstream_interval_arithmetic.py": "f7bafd4259f498fa97fb3add660d375915359d4a2e9817b3fbd1dc40c85b1469",
+    "verify_certificate_schema.py": "0e1aedb0fb5888927e532cb2843fe516ad0b7f85666262bf540bb49f3a658d30"
+  },
+  "verdict": "RIGOROUS COMPLETE CONSTRUCTED-WITNESS CERTIFICATE PASS"
+}
