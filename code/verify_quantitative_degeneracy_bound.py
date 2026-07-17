@@ -78,7 +78,7 @@ report = {
     ],
 }
 OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
-OUT_JSON.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+OUT_JSON.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
 text = "\n".join([
     "VERDICT: DIRECTED INTERVAL QUANTITATIVE CHECK PASSED",
     f"carrier_entropy = {Hq}",
@@ -90,5 +90,5 @@ text = "\n".join([
     f"actual_directional_hessian = {actual_hessian}",
     f"mean_fiber_p11 = {q11}",
 ]) + "\n"
-OUT_TXT.write_text(text, encoding="utf-8")
+OUT_TXT.write_text(text, encoding="utf-8", newline="\n")
 print(text, end="")

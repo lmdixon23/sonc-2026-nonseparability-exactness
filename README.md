@@ -29,6 +29,7 @@ VERDICT: ALL MAINTAINED CHECKS PASSED
 ```
 
 Run scripts from the repository root. No network access is required after dependency installation.
+The suite first verifies `SHA256SUMS.txt`, then runs the corroborative structural checks, multiphase checks, and proof-bearing certificate checks.
 
 ## Claim-to-script map
 
@@ -41,9 +42,15 @@ Run scripts from the repository root. No network access is required after depend
 | Downstream contact, coefficient, phase, Hessian, and value checks | `code/replay_downstream_interval_arithmetic.py` | separately written outward-rounded Arb replay |
 | Independent certificate reconstruction | `code/independent_certificate_reconstruction.py` | second implementation that does not import the primary certificate module |
 | Manuscript-to-certificate agreement | `code/verify_manuscript_certificate_claims.py` | exact source and certificate consistency checks |
+| Certificate portability | `code/verify_certificate_portability.py` | canonical LF text and deterministic gzip bytes |
+| Canonical public repository integrity | `code/verify_sha256_manifest.py` | SHA-256 binding of public source, code, data, and verification records |
 
 The proof-bearing certificate data are under `results/constructed_witness_certificate/`. The detailed
 claim crosswalk is `verification/CLAIM-TO-ARTIFACT-MAP.md`.
+
+## Independent reconstruction and integrity
+
+`code/independent_certificate_reconstruction.py` follows a separate implementation path and does not import the primary certificate module. `SHA256SUMS.txt` binds the canonical public source, code, data, and verification records; `code/verify_sha256_manifest.py` fails on missing, altered, duplicated, malformed, or unsafe manifest entries. Generated run summaries are ignored and are not part of the citation record.
 
 ## Repository map
 
@@ -51,7 +58,6 @@ claim crosswalk is `verification/CLAIM-TO-ARTIFACT-MAP.md`.
 - `code/`: maintained mathematical and certificate checks
 - `results/constructed_witness_certificate/`: exact and validated witness certificate
 - `verification/`: public status, evidence, environment, and claim-to-artifact documentation
-- `_local/`: ignored private workspace for review records, submission material, release production, and machine-specific files
 
 ## Scope
 
@@ -61,4 +67,4 @@ constructed example; the universal characterization is proved analytically in th
 
 ## Cite
 
-See `CITATION.cff`. Add the arXiv identifier and archived-release DOI after posting.
+See `CITATION.cff`. Versioned PDFs and arXiv source archives are distributed through GitHub Releases. Add the arXiv identifier and archival DOI after posting.

@@ -12,3 +12,5 @@
 | Physical root existence and uniqueness | validated interval proof | computational appendix | `krawczyk_certificate.json` |
 | Downstream coefficient, phase, Hessian, and value checks | independent interval replay | verification section | `code/replay_downstream_interval_arithmetic.py` |
 | Manuscript-to-certificate agreement | source and schema checks | verification section | `code/verify_manuscript_certificate_claims.py`; `code/verify_certificate_schema.py` |
+| Checkout-stable certificate bytes | artifact-integrity check | verification section | `code/verify_certificate_portability.py`; `.gitattributes` |
+| Canonical public repository integrity | artifact-integrity check | public release boundary | `SHA256SUMS.txt`; `code/verify_sha256_manifest.py` |

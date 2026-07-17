@@ -4,7 +4,8 @@ authors:
   - family-names: Dixon
     given-names: Logan M.
     orcid: "https://orcid.org/0009-0001-0592-462X"
-version: "0.9.0-rc1"
+version: "0.9-rc2"
+date-released: 2026-07-17
 repository-code: "https://github.com/lmdixon23/sonc-2026-nonseparability-exactness"
 message: "Please cite the manuscript and the archived repository release."
 license: MIT

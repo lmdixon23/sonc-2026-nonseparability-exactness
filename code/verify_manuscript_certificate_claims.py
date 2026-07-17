@@ -9,6 +9,7 @@ import json
 ROOT = Path(__file__).resolve().parents[1]
 TEX = (ROOT / "paper" / "main.tex").read_text(encoding="utf-8")
 APPENDIX = (ROOT / "paper" / "computational_appendix.tex").read_text(encoding="utf-8")
+RUN_ALL = (ROOT / "run_all.sh").read_text(encoding="utf-8")
 BUNDLE = ROOT / "results" / "constructed_witness_certificate"
 MANIFEST = json.loads((BUNDLE / "certificate_manifest.json").read_text(encoding="utf-8"))
 
@@ -19,6 +20,10 @@ required_manuscript_phrases = [
     "downstream Arb replay",
     "it is not presented as an independent elimination",
     "Appendix~\\ref{app:certificate}",
+    "membership in this global cone",
+    "relative to the affine hull of $\\DeltaK$",
+    "Carath\\'eodory's theorem",
+    "$Q=\\overline{\\relint Q}$",
 ]
 for phrase in required_manuscript_phrases:
     assert phrase in TEX, phrase
@@ -28,9 +33,19 @@ prohibited_overclaims = [
     "independently replayable certificate",
     "independently proves the two-negative theorem",
     "first complete characterization",
+    "For a fixed signed support $(A_+,A_-)$, the SONC cone is the conic hull",
 ]
 for phrase in prohibited_overclaims:
     assert phrase.lower() not in TEX.lower(), phrase
+
+required_run_labels = [
+    "== Corroborative structural and symbolic checks ==",
+    "== Multiphase consistency checks ==",
+    "== Exact and validated certificate checks ==",
+]
+for phrase in required_run_labels:
+    assert phrase in RUN_ALL, phrase
+assert "== Analytic and structural checks ==" not in RUN_ALL
 
 required_appendix_phrases = [
     "E_1+E_2=S(X+Y,XY)",

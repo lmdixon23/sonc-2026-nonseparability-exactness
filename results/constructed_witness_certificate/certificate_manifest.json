@@ -1,31 +1,32 @@
 {
   "artifact_hashes": {
-    "README.md": "9ba3902438d45b2ac1df7d4dde1272f4deef48e0263f666c2c6e047647a9726f",
-    "certificate_claim_crosswalk.json": "3edb412bdff4d646d1e0d5a9544177247bd363191ba586f215395545372a1f05",
-    "critical_value_comparison.json": "07223f98e8b25f1684394b2ea661ebdb9c4363d814639ffc48647a8700e1409c",
-    "final_witness_intervals.json": "e552b4f589ef0c1bb730a1e392cab9a449f41de07f65ffce3b581d8edc68d15a",
-    "krawczyk_certificate.json": "91517ebe3109a117e816cb2ca8acd42e90b8475c4adcb032746aabe07c3b5108",
-    "original_critical_equations.json": "b48534983010eb709aad32c5d1a6f2cd29b2322374d102681994b7e13a2ba29f",
-    "resultant_factorization.json": "9797ea92f7e3c18c42edece860e0fec2554e1756436f42ea18ed04f055106be2",
-    "sturm_certificates.json": "af995fb81440979d668a78deebb59cff2fd5efb347c6cdd186efd01344ad6141",
-    "sturm_sequences_full.json.gz": "8b1c710edf3c4d26a763dd220fadbf9c7326927f765d01d85bcd9c6d9ce8e7b8",
-    "subresultant_linear_relation.json": "a08e7aa31cdd597f5d6758be68fa32ec264537daa1a3c6b24c047357695b31e3"
+    "README.md": "bb8c1c5427b673aa4b27aecb94f2116397cd49710a501dbbdda1cf8c7c259187",
+    "certificate_claim_crosswalk.json": "1712f01bfae31fcc8a9defcf147c1e255df1606f041e92acbefde08265c65a69",
+    "critical_value_comparison.json": "bf2b3077bdbd0f400ee4867353cd282357387909208274942d284bf6bbf7012a",
+    "final_witness_intervals.json": "0bb51c9be6b6586ade440aa37400ab6a2c8544de9e0e38657a13fbc427295f45",
+    "krawczyk_certificate.json": "100f4e13425d0447d74a6e10374e84ded999074bc77d8f434615527d3c8b36db",
+    "original_critical_equations.json": "6db816ea618395504c5bdc8166ec929fb9ad76c8478fbd31e0963bf6c457f905",
+    "resultant_factorization.json": "c92031bb595207b9b4c41be0ebf0cc17f833d07bd1419daee78b6201c46931fa",
+    "sturm_certificates.json": "318521717ee50a898fce953643a411f6311ba9ef5cd0856423e10740fe466ec0",
+    "sturm_sequences_full.json.gz": "5deb526b2825b57b5417ba855d12a7a2f4021f5725f25b7c0933c3392b86f689",
+    "subresultant_linear_relation.json": "e9a2cb7589f9e11a3b5752812e342f33b7ab33899dbd8427d6bc361b43f47b25"
   },
   "environment": {
     "arb_precision_bits": 400,
-    "platform": "Windows-11-10.0.26200-SP0",
-    "python": "3.13.9",
     "python_flint": "0.9.0",
+    "python_major_minor": "3.13",
+    "serialization": "platform-independent UTF-8 LF; deterministic gzip mtime=0",
     "sympy": "1.14.0"
   },
   "generator_command": "python code/reconstruct_certificate_from_exact_data.py",
   "schema": "sonc-constructed-witness-certificate-v1",
   "source_hashes": {
-    "constructed_witness_exact_core.py": "a1fc5afbdf5e2fe2bc32cfb1bc73c9ac73461ff40503b7361a674503931c4fb6",
-    "generate_computational_appendix.py": "152c4732885d24d4610993575162200ed271990b06964e25b470b5d934ff423f",
-    "reconstruct_certificate_from_exact_data.py": "189f438238a565b75f7704ab40edee702b2c7a32031b4d9435e04bb2497ad155",
+    "constructed_witness_exact_core.py": "61a780b0a1e73dd7e259ebfc72037ae16650a5aafe8f2dd75071878a21cdb40c",
+    "generate_computational_appendix.py": "34ce19e640f688fe2fbe5b57b69058214190f4a4df79e6beb892e859e2946487",
+    "reconstruct_certificate_from_exact_data.py": "af06602c7c67df5737f7c8bc76daa31db0e83a8f919b5550d3833c8a2a06b390",
     "replay_downstream_interval_arithmetic.py": "f7bafd4259f498fa97fb3add660d375915359d4a2e9817b3fbd1dc40c85b1469",
-    "verify_certificate_schema.py": "0e1aedb0fb5888927e532cb2843fe516ad0b7f85666262bf540bb49f3a658d30"
+    "verify_certificate_portability.py": "2698c4e5c4aec0c899c6a656f5e172a87ae265cd814606ea86932410b69b67f9",
+    "verify_certificate_schema.py": "efe0c06cc67318aec242f22d490c28158fd810804b8f1600757bcb8c9f89270e"
   },
   "verdict": "RIGOROUS COMPLETE CONSTRUCTED-WITNESS CERTIFICATE PASS"
 }

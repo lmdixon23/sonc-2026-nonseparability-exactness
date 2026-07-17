@@ -40,9 +40,3 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
-
-# Noncanonical generated check summaries
-results/baseline_checks.json
-results/certificate_checks.json
-results/multiphase_checks.json
-results/toric_degenerations.json

@@ -9,6 +9,7 @@ SCRIPTS = [
     "verify_quantitative_degeneracy_bound.py",
     "reconstruct_certificate_from_exact_data.py",
     "verify_certificate_schema.py",
+    "verify_certificate_portability.py",
     "replay_downstream_interval_arithmetic.py",
     "generate_computational_appendix.py",
     "verify_manuscript_certificate_claims.py",

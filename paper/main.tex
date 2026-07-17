@@ -101,17 +101,17 @@ We use logarithmic coordinates $x_i=e^{z_i}$. Then \eqref{eq:signomial} becomes
 \]
 Global nonnegativity on $\R_{>0}^n$ is equivalent to nonnegativity of $F_c$ on $\R^n$.
 
-\begin{definition}[Circuit signomial and SONC cone]
-Let $V\subseteq A_+$ be affinely independent and let $\beta\in\relint\conv(V)$. A \emph{circuit signomial} has the form
+\begin{definition}[Circuit signomial and SONC membership]
+Let $V\subset\R^n$ be finite and affinely independent, and let $\beta\in\relint\conv(V)$. A \emph{circuit signomial} has the form
 \[
  g(z)=\sum_{a\in V}u_a e^{a\cdot z}-v e^{\beta\cdot z},
  \qquad u_a>0,\ v>0.
 \]
-It is a nonnegative circuit signomial when $g\ge0$ on $\R^n$. For a fixed signed support $(A_+,A_-)$, the SONC cone is the conic hull of nonnegative circuit signomials whose positive exponents lie in $A_+$ and whose unique negative exponent lies in $A_-$, together with nonnegative monomials supported on $A_+$. This agrees with the fixed-support convention in \cite[Section~3.2]{FFT}.
+It is a nonnegative circuit signomial when $g\ge0$ on $\R^n$. A signomial is \emph{SONC} if it is a finite sum of nonnegative circuit signomials and nonnegative monomials. In statements involving a fixed pair $(A_+,A_-)$, the signomial itself is required to have the stated signed support, while SONC means membership in this global cone. This is the convention used in \cite[Section~3.2]{FFT}; the support condition constrains the resulting coefficient vector rather than imposing an additional decomposition convention.
 \end{definition}
 
 \begin{definition}[SONC signed support]
-A signed support $(A_+,A_-)$ is called a \emph{SONC signed support} if every globally nonnegative signomial with exact signed support $(A_+,A_-)$ belongs to the SONC cone.
+A signed support $(A_+,A_-)$ is called a \emph{SONC signed support} if every globally nonnegative signomial with exact signed support $(A_+,A_-)$ is SONC.
 \end{definition}
 
 Let $P=\conv(A_+)$. A height vector $h=(h_a)_{a\in A_+}$ induces a regular subdivision $\mathcal T_h$ of $P$ by projecting the lower faces of the lifted polytope
@@ -164,7 +164,9 @@ such that
 \end{theorem}
 
 \begin{proof}
-Suppose instead that $L\subseteq\lin(F_m-F_m)$ for every $m\in\relint Q$. Since $m\in\relint F_m$, a neighborhood of $m$ in the affine space $m+L=\aff Q$ lies in $\relint F_m$. Thus the carrier map $m\mapsto F_m$ is locally constant on the connected set $\relint Q$, hence constant. Its constant closed value contains $Q$, and therefore contains all of $A_-$, a contradiction.
+Suppose instead that $L\subseteq\lin(F_m-F_m)$ for every $m\in\relint Q$. Fix such an $m$. Since $m\in\relint F_m$, there is a relative neighborhood of $m$ in the affine space $m+\lin(F_m-F_m)$ that is contained in $\relint F_m$. Intersecting this neighborhood with $m+L=\aff Q$ gives a neighborhood of $m$ relative to $\aff Q$ that is still contained in $\relint F_m$. Every point in that neighborhood therefore has the same minimal carrier $F_m$.
+
+Thus the carrier map $m\mapsto F_m$ is locally constant on the connected set $\relint Q$, and hence is constant there, with value say $F$. We then have $\relint Q\subseteq F$. Since $F$ is closed and $Q=\overline{\relint Q}$, it follows that $Q\subseteq F$. In particular, $F$ contains all of $A_-$, contradicting the choice of the witnessing subdivision.
 \end{proof}
 
 Write $A_-=\{b_1,\ldots,b_k\}$ and let $B=[b_1\ \cdots\ b_k]$.
@@ -467,31 +469,33 @@ for some interior $\lambda_0$ and nonzero tangent $v$. Assume that no boundary p
 \end{theorem}
 
 \begin{proof}
-For sufficiently small $t>0$, the points $\lambda_\pm=\lambda_0\pm tv$ lie in the simplex interior and Taylor expansion gives
+All convexity statements in this proof are relative to the affine hull of $\DeltaK$. For sufficiently small $t>0$, the points $\lambda_\pm=\lambda_0\pm tv$ lie in the simplex interior and Taylor expansion gives
 \[
  \frac{G(\lambda_+)+G(\lambda_-)}2<G(\lambda_0).
 \]
-Thus the lower convex envelope $G^{**}$ satisfies
+If $G^{**}$ denotes the lower convex envelope of $G$ on $\DeltaK$, then
 \[
- G^{**}(\lambda_0)<G(\lambda_0).
+ G^{**}(\lambda_0)
+ \le \frac{G(\lambda_+)+G(\lambda_-)}2
+ <G(\lambda_0).
 \]
-Because $G^{**}$ is finite and convex, it has a finite relative subgradient $\rho$ at the interior point $\lambda_0$. The affine function
+Because $G^{**}$ is finite and convex on the compact simplex, its relative subdifferential at the relative-interior point $\lambda_0$ is nonempty; see, for example, \cite{Rockafellar}. Choose a finite relative subgradient $\rho$. The affine function
 \[
  \ell(\lambda)=G^{**}(\lambda_0)+\rho\cdot(\lambda-\lambda_0)
 \]
-satisfies $\ell\le G^{**}\le G$.
+satisfies $\ell\le G^{**}\le G$ on $\DeltaK$.
 
-The convex-envelope value at $\lambda_0$ has an attained finite convex representation
+Since $G$ is continuous and $\DeltaK$ is compact, the convex-envelope value at $\lambda_0$ is attained by a finite convex combination of graph points. By Carath\'eodory's theorem, we may write
 \[
  \lambda_0=\sum_{s=1}^r\theta_s\lambda^{(s)},
  \qquad
  G^{**}(\lambda_0)=\sum_{s=1}^r\theta_sG(\lambda^{(s)}),
 \]
-with $\theta_s>0$ and $r\le k+1$. Since every difference
+with $\theta_s>0$ and $r\le k+1$. Every difference
 \[
  G(\lambda^{(s)})-\ell(\lambda^{(s)})
 \]
-is nonnegative and their weighted sum is zero, equality holds at each representing point. Hence every $\lambda^{(s)}$ globally minimizes $G-\rho\cdot\lambda$. After merging repeated representing points, the strict gap rules out a one-point representation, and the boundary hypothesis places all contacts in the interior.
+is nonnegative, while their weighted sum is zero. Hence equality holds at every representing point, so each $\lambda^{(s)}$ globally minimizes $G-\rho\cdot\lambda$. A one-point representation would force $\lambda^{(1)}=\lambda_0$ and $G^{**}(\lambda_0)=G(\lambda_0)$, contrary to the strict gap. After merging repeated points, at least two distinct minimizers remain. The boundary hypothesis then places every contact in the simplex interior.
 \end{proof}
 
 \section{Proof of the main theorem}

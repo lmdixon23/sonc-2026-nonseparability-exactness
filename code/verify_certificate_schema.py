@@ -37,6 +37,7 @@ required_sources = {
     "reconstruct_certificate_from_exact_data.py",
     "replay_downstream_interval_arithmetic.py",
     "verify_certificate_schema.py",
+    "verify_certificate_portability.py",
     "generate_computational_appendix.py",
 }
 assert required_sources <= set(manifest["source_hashes"])

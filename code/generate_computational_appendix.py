@@ -268,6 +268,6 @@ lines.append(
     r"and zero-count fields."
 )
 
-OUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
+OUT.write_bytes(("\n".join(lines) + "\n").encode("utf-8"))
 print("VERDICT: COMPUTATIONAL APPENDIX GENERATED")
 print("output =", OUT)

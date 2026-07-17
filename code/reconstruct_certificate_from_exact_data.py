@@ -10,7 +10,7 @@ BUNDLE = ROOT / "results" / "constructed_witness_certificate"
 SUMMARY = ROOT / "results" / "constructed_witness_certificate.json"
 
 summary = build_certificate_bundle(BUNDLE)
-SUMMARY.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+SUMMARY.write_text(json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
 print("VERDICT: COMPLETE CERTIFICATE RECONSTRUCTED FROM EXACT DATA")
 print("bundle =", BUNDLE)
 print("summary =", SUMMARY)

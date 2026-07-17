@@ -1,5 +1,18 @@
 * text=auto
 *.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+LICENSE text eol=lf
 *.gz binary
 *.pdf binary
 *.zip binary
+# Canonical LF text prevents proof-artifact hashes from depending on checkout platform.
+*.py text eol=lf
+*.tex text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.cff text eol=lf
+VERSION text eol=lf

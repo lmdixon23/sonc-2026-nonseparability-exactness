@@ -15,9 +15,9 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any
 import json
-import platform
 import sys
 import gzip
+import io
 
 import sympy as sp
 from flint import arb, fmpq, ctx
@@ -263,7 +263,7 @@ def _serialize_matrix(matrix: list[list[arb]]) -> list[list[list[str]]]:
 
 
 def _write_json(path: Path, data: Any) -> None:
-    path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
 
 
 def build_certificate_bundle(root: Path) -> dict[str, Any]:
@@ -420,13 +420,16 @@ def build_certificate_bundle(root: Path) -> dict[str, Any]:
         "R35": r35_sturm,
     }
     _write_json(root / "sturm_certificates.json", sturm_data)
-    with gzip.open(root / "sturm_sequences_full.json.gz", "wt", encoding="utf-8", compresslevel=9) as stream:
-        json.dump({
-            "diagonal": diagonal_sturm_full,
-            "R12": r12_sturm_full,
-            "R35": r35_sturm_full,
-        }, stream, separators=(",", ":"), sort_keys=True)
-        stream.write("\n")
+    gzip_path = root / "sturm_sequences_full.json.gz"
+    with gzip_path.open("wb") as raw_stream:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=raw_stream, compresslevel=9, mtime=0) as compressed:
+            with io.TextIOWrapper(compressed, encoding="utf-8", newline="\n") as stream:
+                json.dump({
+                    "diagonal": diagonal_sturm_full,
+                    "R12": r12_sturm_full,
+                    "R35": r35_sturm_full,
+                }, stream, separators=(",", ":"), sort_keys=True)
+                stream.write("\n")
 
     subresultant_data = {
         "subresultant_degrees_in_p": SUBRESULTANT_DEGREES,
@@ -536,7 +539,7 @@ replay_downstream_interval_arithmetic.py is intentionally narrower: it checks th
 downstream interval arithmetic from certified boxes and does not redo elimination,
 Sturm isolation, subresultants, or Krawczyk existence.
 """
-    (root / "README.md").write_text(readme, encoding="utf-8")
+    (root / "README.md").write_text(readme, encoding="utf-8", newline="\n")
 
     file_hashes = {}
     for path in sorted(root.iterdir()):
@@ -548,6 +551,7 @@ Sturm isolation, subresultants, or Krawczyk existence.
         Path(__file__).with_name("reconstruct_certificate_from_exact_data.py"),
         Path(__file__).with_name("replay_downstream_interval_arithmetic.py"),
         Path(__file__).with_name("verify_certificate_schema.py"),
+        Path(__file__).with_name("verify_certificate_portability.py"),
         Path(__file__).with_name("generate_computational_appendix.py"),
     ]
     source_hashes = {
@@ -558,11 +562,11 @@ Sturm isolation, subresultants, or Krawczyk existence.
         "schema": "sonc-constructed-witness-certificate-v1",
         "generator_command": "python code/reconstruct_certificate_from_exact_data.py",
         "environment": {
-            "python": sys.version.split()[0],
-            "platform": platform.platform(),
+            "python_major_minor": f"{sys.version_info.major}.{sys.version_info.minor}",
             "sympy": sp.__version__,
             "python_flint": getattr(flint, "__version__", "unknown"),
             "arb_precision_bits": ctx.prec,
+            "serialization": "platform-independent UTF-8 LF; deterministic gzip mtime=0",
         },
         "source_hashes": source_hashes,
         "artifact_hashes": file_hashes,
