@@ -7,7 +7,7 @@ Code, exact certificate data, and reproducibility material for the accompanying 
 ## Main result
 
 Let $A_+,A_-\subset\mathbb R^n$ be finite and disjoint, with $A_+$ full dimensional and
-$A_-\subset\operatorname{int}\operatorname{conv}(A_+)$. The paper proves that the signed support
+with $A_-$ contained in the interior of the convex hull of $A_+$. The paper proves that the signed support
 $(A_+,A_-)$ is SONC-exact if and only if it is nonseparable in the sense of Feliu, Ferrer, and Telek.
 
 The universal theorem is analytic. Computation is proof-bearing only for the explicit three-negative
