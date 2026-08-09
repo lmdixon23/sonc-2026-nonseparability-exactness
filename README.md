@@ -4,6 +4,8 @@
 
 Code, exact certificate data, and reproducibility material for the accompanying preprint.
 
+[Research site](https://lmdixon23.github.io/) · [ORCID](https://orcid.org/0009-0001-0592-462X)
+
 ## Main result
 
 Let $A_+,A_-\subset\mathbb R^n$ be finite and disjoint, with $A_+$ full dimensional and
@@ -67,4 +69,4 @@ constructed example; the universal characterization is proved analytically in th
 
 ## Cite
 
-See `CITATION.cff`. Versioned PDFs and arXiv source archives are distributed through GitHub Releases. Add the arXiv identifier and archival DOI after posting.
+See `CITATION.cff`. Versioned PDFs and source archives are distributed through GitHub Releases. Until an arXiv identifier or archival DOI is actually posted, the public repository and its versioned releases remain the reproducibility record; add external identifiers here only after they exist.
